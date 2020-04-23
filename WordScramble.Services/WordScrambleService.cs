@@ -23,7 +23,7 @@ namespace WordScramble.Services
 
             while (scrambledWord.Length < value.Length)
             {
-                var index = randomNumberGenerator.GetRandomNumber(0, value.Length);
+                var index = randomNumberGenerator.GetRandomNumber(value.Length);
                 var nextCharacter = GetCharacterAtIndex(value, index);
 
                 if (!usedIndexList.Contains(index))

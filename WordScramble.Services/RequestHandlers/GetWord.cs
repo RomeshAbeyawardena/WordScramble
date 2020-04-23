@@ -23,7 +23,7 @@ namespace WordScramble.Services.RequestHandlers
         public override async Task<GetWordResponse> Handle(GetWordRequest request, CancellationToken cancellationToken)
         {
             var word = string.Empty;
-            while (word.Length > request.MinimumLength)
+            while (word.Length < request.MinimumLength)
             {
                 word = await wordDictionaryService
                         .GetWordAtLineIndexFromDictionary(
