@@ -1,0 +1,41 @@
+﻿<div>
+    <h3 id="output">[Output here]</h3>
+</div>
+<form>
+    <div class="form-group">
+        <label for="wordText">Word:</label>
+        <input id="wordText" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="minimumLengthText">Minimum length:</label>
+        <input id="minimumLengthText" type="text" class="form-control" />
+    </div>
+    <button id="scrambleButton" type="button" class="btn btn-primary">Scramble</button>
+    <button id="randomButton" class="btn btn-primary">Get Random Word</button>
+</form>
+@section bodyScripts{
+    <script type="text/javascript">
+        $(function () {
+            $wordText = $("#wordText");
+            $minimumLengthText = $("#minimumLengthText");
+            $scrambleButton = $("#scrambleButton");
+            $randomButton = $("#randomButton");
+            $output = $("#output");
+
+            $scrambleButton.on("click", function () {
+                var wordTextVal = $wordText.val();
+                if (wordTextVal.length) {
+                    $.get("/word/scramble", { word: wordTextVal }, function (e) { $output.text(e)  })
+                }
+            });
+
+            $randomButton.on("click", function () {
+                var minimumLengthText = $minimumLengthText.val();
+                if ($minimumLengthText.length) {
+                    $.get("/word/random", { minimumLength: wordTextVal }, function (e) { $wordText.val(e)  })
+                }
+            });
+        });
+
+    </script>
+}
