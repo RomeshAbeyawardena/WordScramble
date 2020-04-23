@@ -11,7 +11,7 @@
         <input id="minimumLengthText" type="text" class="form-control" />
     </div>
     <button id="scrambleButton" type="button" class="btn btn-primary">Scramble</button>
-    <button id="randomButton" class="btn btn-primary">Get Random Word</button>
+    <button id="randomButton" type="button" class="btn btn-primary">Get Random Word</button>
 </form>
 @section bodyScripts{
     <script type="text/javascript">
@@ -25,15 +25,18 @@
             $scrambleButton.on("click", function () {
                 var wordTextVal = $wordText.val();
                 if (wordTextVal.length) {
-                    $.get("/word/scramble", { word: wordTextVal }, function (e) { $output.text(e)  })
+                    $.get('@Url.Action("Scramble", "Word")', { word: wordTextVal }, function (e) { $output.text(e)  });
                 }
             });
 
             $randomButton.on("click", function () {
                 var minimumLengthText = $minimumLengthText.val();
-                if ($minimumLengthText.length) {
-                    $.get("/word/random", { minimumLength: wordTextVal }, function (e) { $wordText.val(e)  })
+
+                if (!$minimumLengthText.length || isNaN(minimumLengthText)) {
+                    minimumLengthText = 0;
                 }
+
+                $.get('@Url.Action("Random", "Word")', { minimumLength: minimumLengthText }, function (e) { $wordText.val(e)  })
             });
         });
 

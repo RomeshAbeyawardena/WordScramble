@@ -16,7 +16,7 @@ namespace WordScramble.Api.Controllers
 {
     public class WordController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet, ActionName("Scramble")]
         public async Task<IActionResult> ScrambleWord(ScrambleWordRequestViewModel viewModel, CancellationToken cancellationToken)
         {
             var request = Mapper
@@ -28,7 +28,7 @@ namespace WordScramble.Api.Controllers
             return ValidateResponse(response);
         }
 
-        [HttpGet]
+        [HttpGet, ActionName("Random")]
         public async Task<IActionResult> GetRandomWord(GetWordRequestViewModel viewModel, CancellationToken cancellationToken)
         {
             var request = Mapper
