@@ -28,7 +28,7 @@ namespace WordScramble.Domains
         {
             return Activator.CreateInstance<TResponse>().Configure(response => { 
                 var responseBase = response as ResponseBase<TResult>;
-                responseBase.IsValid = false; 
+                responseBase.IsValid = true; 
                 responseBase.Result = result; 
                 responseBase.Errors = Array.Empty<ValidationFailure>();
             });
@@ -39,7 +39,7 @@ namespace WordScramble.Domains
         {
             return Activator.CreateInstance<TResponse>().Configure(response => { 
                 var responseBase = response as ResponseBase<TResult>;
-                responseBase.IsValid = true; 
+                responseBase.IsValid = false; 
                 responseBase.Result = default; 
                 responseBase.Errors = errors;
             });

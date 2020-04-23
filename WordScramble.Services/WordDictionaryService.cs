@@ -9,7 +9,7 @@ namespace WordScramble.Services
 {
     public class WordDictionaryService : IWordDictionaryService
     {
-        public async Task<string> GetWordAtLineIndexFromDictionary(IFile file, int index, int minimumWordLength)
+        public async Task<string> GetWordAtLineIndexFromDictionary(IFile file, int index)
         {
             using var wordStream = file.OpenText();
 
@@ -22,11 +22,6 @@ namespace WordScramble.Services
                 if(lineIndex++ < lineIndexRange)
                 { 
                     word = await wordStream.ReadLineAsync();
-
-                    if(word.Length < minimumWordLength)
-                    {
-                        lineIndex--;
-                    }
                 }
                 else
                 {

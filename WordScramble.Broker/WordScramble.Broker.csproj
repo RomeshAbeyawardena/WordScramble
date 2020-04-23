@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WordScramble.Contracts\WordScramble.Contracts.csproj" />
+    <ProjectReference Include="..\WordScramble.Services\WordScramble.Services.csproj" />
   </ItemGroup>
 
 </Project>

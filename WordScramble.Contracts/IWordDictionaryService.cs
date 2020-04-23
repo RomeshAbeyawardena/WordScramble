@@ -8,6 +8,6 @@ namespace WordScramble.Contracts
 {
     public interface IWordDictionaryService
     {
-        Task<string> GetWordAtLineIndexFromDictionary(IFile file, int index, int minimumWordLength);
+        Task<string> GetWordAtLineIndexFromDictionary(IFile file, int index);
     }
 }

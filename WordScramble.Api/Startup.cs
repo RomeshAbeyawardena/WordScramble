@@ -38,6 +38,9 @@ namespace WordScramble.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints
+                    .MapDefaultControllerRoute();
+
+                endpoints
                     .MapControllers();
             });
         }

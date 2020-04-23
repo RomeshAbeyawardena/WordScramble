@@ -22,18 +22,21 @@ namespace WordScramble.Services.RequestHandlers
 
         public override async Task<GetWordResponse> Handle(GetWordRequest request, CancellationToken cancellationToken)
         {
-            var word = await wordDictionaryService
-                    .GetWordAtLineIndexFromDictionary(
-                        FileExtensions.GetFile(applicationSettings.DictionaryPath),
-                        randomNumberGenerator
-                            .GetRandomNumber(General.MaximumDictionaryLineIndex), request.MinimumLength);
-            
+            var word = string.Empty;
+            while (word.Length > request.MinimumLength)
+            {
+                word = await wordDictionaryService
+                        .GetWordAtLineIndexFromDictionary(
+                            FileExtensions.GetFile(applicationSettings.DictionaryPath),
+                            randomNumberGenerator
+                                .GetRandomNumber(General.MaximumDictionaryLineIndex));
+            }
             return Success(word);
         }
 
         public GetWord(
             ApplicationSettings applicationSettings,
-            IWordDictionaryService wordDictionaryService, 
+            IWordDictionaryService wordDictionaryService,
             IRandomNumberGenerator randomNumberGenerator)
         {
             this.applicationSettings = applicationSettings;

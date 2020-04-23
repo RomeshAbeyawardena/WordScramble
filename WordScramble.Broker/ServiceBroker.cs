@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WordScramble.Contracts;
+using WordScramble.Services;
 
 namespace WordScramble.Broker
 {
     public sealed class AppServiceBroker : ServiceBroker
     {
-        private AppServiceBroker()
+        public AppServiceBroker()
         {
-            Assemblies = new [] { Assembly.GetAssembly(typeof(AppServiceBroker)) };
+            Assemblies = new [] { Assembly.GetAssembly(typeof(ServiceRegistration)) };
         }
 
     }
@@ -34,7 +35,7 @@ namespace WordScramble.Broker
             {
                 var types = assembly.GetTypes();
                 var serviceRegistrationTypes = types.Where(type => type
-                    .GetInterface(nameof(IServiceRegistration), false) != null);
+                    .GetInterfaces().Any(@interface => @interface.Name == nameof(IServiceRegistration)));
 
                 foreach(var serviceRegistrationType in serviceRegistrationTypes)
                 {

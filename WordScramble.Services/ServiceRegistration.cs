@@ -16,7 +16,10 @@ namespace WordScramble.Services
     {
         public void RegisterServices(IServiceCollection services)
         {
-            services.AddSingleton<Random>();
+            services
+                .AddSingleton<ApplicationSettings>()
+                .AddSingleton<Random>();
+
             services.Scan(scan => scan
                 .FromAssembliesOf(typeof(ServiceRegistration))
                 .AddClasses(classes => classes
