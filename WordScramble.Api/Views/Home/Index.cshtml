@@ -1,31 +1,70 @@
-﻿<div>
+﻿@model SolveWordRequestViewModel
+    <ul class="nav nav-pills nav-fill d-none">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Multiplayer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Single Player</a>
+        </li>
+    </ul>
+<div class="d-none">
     <h1 id="output">[Output here]</h1>
 </div>
 <form>
     <div class="form-group">
         <label for="wordText">Word:</label>
-        <input id="wordText" type="text" class="form-control" />
+        <div class="input-group mb-3">
+            <input id="wordText" 
+                   type="text" 
+                   class="form-control bg-secondary text-light" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-secondary text-light" 
+                        type="button" 
+                        id="lookupButton">Lookup</button>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label for="minimumLengthText">Minimum length:</label>
-        <input id="minimumLengthText" type="text" class="form-control" />
+        <input id="minimumLengthText" value="5" min="3" max="@int.MaxValue"
+               type="number" 
+               class="form-control bg-secondary text-light" />
     </div>
-    <button id="scrambleButton" type="button" class="btn btn-primary">Scramble</button>
-    <button id="randomButton" type="button" class="btn btn-primary">Get Random Word</button>
+    <button id="scrambleButton" 
+            type="button" 
+            class="btn btn-secondary">Scramble</button>
+    <button id="randomButton" 
+            type="button" 
+            class="btn btn-secondary">Get Random Word</button>
 </form>
+
+
+
 @section bodyScripts{
     <script type="text/javascript">
         $(function () {
+            $lookupButton = $("#lookupButton");
             $wordText = $("#wordText");
             $minimumLengthText = $("#minimumLengthText");
             $scrambleButton = $("#scrambleButton");
             $randomButton = $("#randomButton");
             $output = $("#output");
-
+            $outputParent = $output.parent();
             $scrambleButton.on("click", function () {
                 var wordTextVal = $wordText.val();
                 if (wordTextVal.length) {
-                    $.get('@Url.Action("Scramble", "Word")', { word: wordTextVal }, function (e) { $output.text(e)  });
+                    $.get('@Url.Action("Scramble", "Word")', { word: wordTextVal },
+                        function (e) {
+                            $output.text(e);
+                            $outputParent.removeClass("d-none");
+                        });
+                }
+            });
+
+            $lookupButton.on("click", function () {
+                var wordTextVal = $wordText.val();
+                if (wordTextVal.length) {
+                    window.open('@Url.Action("Index", "Lookup")/' + wordTextVal);
                 }
             });
 
@@ -36,9 +75,9 @@
                     minimumLengthText = 0;
                 }
 
-                $.get('@Url.Action("Random", "Word")', { minimumLength: minimumLengthText }, function (e) { $wordText.val(e)  })
+                $.get('@Url.Action("Random", "Word")', { minimumLength: minimumLengthText }, 
+                    function (e) { $wordText.val(e)  })
             });
         });
-
     </script>
 }

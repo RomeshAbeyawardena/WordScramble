@@ -1,0 +1,31 @@
+﻿@model LookupIndexViewModel
+@section headerScripts {
+    <style type="text/css">
+        iframe {
+            width: 100%;
+            border: none;
+            margin:0;
+            padding:0;
+        }
+    </style>
+}
+
+<div id="hide-panel" class="card">
+    <button id="back-button" class="btn btn-primary">Go Back</button>
+</div>
+<iframe src="@string.Format(Model.DictionaryUriFormat, Model.Word)"></iframe>
+
+@section bodyScripts {
+    <script type="text/javascript">
+        $(function () {
+            var $iFrames = $("iframe");
+            var $backButton = $("#back-button");
+
+            $backButton.on("click", function () {
+                window.close();
+            });
+
+            $iFrames.height(window.innerHeight - $backButton.height());
+        });
+    </script>
+}

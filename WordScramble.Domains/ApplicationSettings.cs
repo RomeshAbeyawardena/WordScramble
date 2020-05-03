@@ -14,6 +14,7 @@ namespace WordScramble.Domains
             configuration.Bind(this);
         }
 
+        public string DictionaryUriFormat { get; set; }
         public string DictionaryPath { get; set; }
     }
 }

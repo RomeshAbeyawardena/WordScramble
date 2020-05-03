@@ -40,8 +40,8 @@ namespace WordScramble.Api.Controllers
             return ValidateResponse(response);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Solve(SolveWordRequestViewModel viewModel, CancellationToken cancellationToken)
+        [HttpGet, ActionName("Solve")]
+        public async Task<IActionResult> SolveScrambledWord(SolveWordRequestViewModel viewModel, CancellationToken cancellationToken)
         {
             var request = Mapper
                 .Map<SolveWordRequest>(viewModel);
